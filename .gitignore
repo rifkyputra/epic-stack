@@ -6,10 +6,6 @@ node_modules
 .env
 .cache
 
-/prisma/data.db
-/prisma/data.db-journal
-/tests/prisma
-
 /test-results/
 /playwright-report/
 /playwright/.cache/

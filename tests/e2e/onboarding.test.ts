@@ -1,6 +1,6 @@
 import { invariant } from '@epic-web/invariant'
 import { faker } from '@faker-js/faker'
-import { prisma } from '#app/utils/db.server.ts'
+
 import { readEmail } from '#tests/mocks/utils.ts'
 import { createUser, expect, test as base } from '#tests/playwright-utils.ts'
 
@@ -19,7 +19,7 @@ const test = base.extend<{
 		password: string
 	}
 }>({
-	getOnboardingData: async ({}, use) => {
+	getOnboardingData: async ({ }, use) => {
 		const userData = createUser()
 		await use(() => {
 			const onboardingData = {

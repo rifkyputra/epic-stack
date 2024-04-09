@@ -26,30 +26,30 @@ const createRequestHandler = IS_PROD
 const viteDevServer = IS_PROD
 	? undefined
 	: await import('vite').then(vite =>
-			vite.createServer({
-				server: { middlewareMode: true },
-			}),
-		)
+		vite.createServer({
+			server: { middlewareMode: true },
+		}),
+	)
 
 const app = express()
 
-const getHost = (req: { get: (key: string) => string | undefined }) =>
-	req.get('X-Forwarded-Host') ?? req.get('host') ?? ''
+// const getHost = (req: { get: (key: string) => string | undefined }) =>
+// 	req.get('X-Forwarded-Host') ?? req.get('host') ?? ''
 
 // fly is our proxy
 app.set('trust proxy', true)
 
 // ensure HTTPS only (X-Forwarded-Proto comes from Fly)
-app.use((req, res, next) => {
-	const proto = req.get('X-Forwarded-Proto')
-	const host = getHost(req)
-	if (proto === 'http') {
-		res.set('X-Forwarded-Proto', 'https')
-		res.redirect(`https://${host}${req.originalUrl}`)
-		return
-	}
-	next()
-})
+// app.use((req, res, next) => {
+// 	const proto = req.get('X-Forwarded-Proto')
+// 	const host = getHost(req)
+// 	if (proto === 'http') {
+// 		res.set('X-Forwarded-Proto', 'https')
+// 		res.redirect(`https://${host}${req.originalUrl}`)
+// 		return
+// 	}
+// 	next()
+// })
 
 // no ending slashes for SEO reasons
 // https://github.com/epicweb-dev/epic-stack/discussions/108
@@ -200,8 +200,8 @@ async function getBuild() {
 	const build = viteDevServer
 		? viteDevServer.ssrLoadModule('virtual:remix/server-build')
 		: // @ts-ignore this should exist before running the server
-			// but it may not exist just yet.
-			await import('#build/server/index.js')
+		// but it may not exist just yet.
+		await import('#build/server/index.js')
 	// not sure how to make this happy 🤷‍♂️
 	return build as unknown as ServerBuild
 }

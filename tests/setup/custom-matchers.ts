@@ -1,7 +1,7 @@
 import * as setCookieParser from 'set-cookie-parser'
 import { expect } from 'vitest'
 import { sessionKey } from '#app/utils/auth.server.ts'
-import { prisma } from '#app/utils/db.server.ts'
+
 import { authSessionStorage } from '#app/utils/session.server.ts'
 import {
 	type ToastInput,
@@ -20,12 +20,10 @@ expect.extend({
 			return {
 				pass: Boolean(location),
 				message: () =>
-					`Expected response to ${this.isNot ? 'not ' : ''}redirect${
-						redirectToSupplied
-							? ` to ${this.utils.printExpected(redirectTo)}`
-							: ''
-					} but got ${
-						location ? 'no redirect' : this.utils.printReceived(location)
+					`Expected response to ${this.isNot ? 'not ' : ''}redirect${redirectToSupplied
+						? ` to ${this.utils.printExpected(redirectTo)}`
+						: ''
+					} but got ${location ? 'no redirect' : this.utils.printReceived(location)
 					}`,
 			}
 		}
@@ -34,8 +32,7 @@ expect.extend({
 			return {
 				pass: false,
 				message: () =>
-					`Expected redirect to ${
-						this.isNot ? 'not ' : ''
+					`Expected redirect to ${this.isNot ? 'not ' : ''
 					}be ${this.utils.printExpected(
 						'>= 300 && < 400',
 					)} but got ${this.utils.printReceived(response.status)}`,
@@ -66,8 +63,7 @@ expect.extend({
 			pass:
 				location == redirectTo || urlsMatch(toUrl(location), toUrl(redirectTo)),
 			message: () =>
-				`Expected response to ${
-					this.isNot ? 'not ' : ''
+				`Expected response to ${this.isNot ? 'not ' : ''
 				}redirect to ${this.utils.printExpected(
 					redirectTo,
 				)} but got ${this.utils.printReceived(location)}`,
@@ -83,8 +79,7 @@ expect.extend({
 			return {
 				pass: false,
 				message: () =>
-					`The en_session set-cookie header was${
-						this.isNot ? '' : ' not'
+					`The en_session set-cookie header was${this.isNot ? '' : ' not'
 					} defined`,
 			}
 		}
@@ -109,8 +104,7 @@ expect.extend({
 		return {
 			pass: Boolean(session),
 			message: () =>
-				`A session was${
-					this.isNot ? ' not' : ''
+				`A session was${this.isNot ? ' not' : ''
 				} created in the database for ${userId}`,
 		}
 	},
@@ -147,8 +141,7 @@ expect.extend({
 		return {
 			pass,
 			message: () =>
-				`toast in the response ${
-					this.isNot ? 'does not match' : 'matches'
+				`toast in the response ${this.isNot ? 'does not match' : 'matches'
 				} the expected toast${diff}`,
 		}
 	},
@@ -161,8 +154,8 @@ interface CustomMatchers<R = unknown> {
 }
 
 declare module 'vitest' {
-	interface Assertion<T = any> extends CustomMatchers<T> {}
-	interface AsymmetricMatchersContaining extends CustomMatchers {}
+	interface Assertion<T = any> extends CustomMatchers<T> { }
+	interface AsymmetricMatchersContaining extends CustomMatchers { }
 }
 
 function getSetCookie(headers: Headers) {

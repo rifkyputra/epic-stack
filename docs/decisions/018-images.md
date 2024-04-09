@@ -37,12 +37,6 @@ images to a service.
 We also have plans to support automatic optimization of images a la
 Cloudinary/Cloudflare.
 
-One thing we're waiting on is
-[LiteFS to support object storage](https://github.com/superfly/litefs/issues/327).
-Once that's done, then we'll probably move the images to files in your volume
-and we'll also be able to use that to cache optimized versions of the images.
-This will have limited scale, but should be Epic for many applications.
-
 But all of this is work that hasn't been done yet, so if you're adopting the
 Epic Stack, you may consider adjusting the image to use a service. And if you've
 got big plans for images in your site, you may want to consider a service.

@@ -24,8 +24,7 @@ and well maintained library for express is
 [express-rate-limit](https://npm.im/express-rate-limit).
 
 One challenge with rate limiting in a production environment is if you have
-multiple instances of your application running behind a load balancer (which in
-our case is Fly). In this case, you need to ensure that the rate limit is
+multiple instances of your application running behind a load balancer. In this case, you need to ensure that the rate limit is
 applied across all instances and not just to each individual instance.
 `express-rate-limit` allows you to do this by using a shared storage mechanism.
 A common solution is Redis or memcached.

@@ -6,7 +6,7 @@ import {
 	getSessionExpirationDate,
 	sessionKey,
 } from '#app/utils/auth.server.ts'
-import { prisma } from '#app/utils/db.server.ts'
+
 import { authSessionStorage } from '#app/utils/session.server.ts'
 import { createUser } from './db-utils.ts'
 
@@ -60,14 +60,14 @@ export const test = base.extend<{
 	insertNewUser(options?: GetOrInsertUserOptions): Promise<User>
 	login(options?: GetOrInsertUserOptions): Promise<User>
 }>({
-	insertNewUser: async ({}, use) => {
+	insertNewUser: async ({ }, use) => {
 		let userId: string | undefined = undefined
 		await use(async options => {
 			const user = await getOrInsertUser(options)
 			userId = user.id
 			return user
 		})
-		await prisma.user.delete({ where: { id: userId } }).catch(() => {})
+		await prisma.user.delete({ where: { id: userId } }).catch(() => { })
 	},
 	login: async ({ page }, use) => {
 		let userId: string | undefined = undefined
